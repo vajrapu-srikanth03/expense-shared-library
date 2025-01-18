@@ -29,10 +29,115 @@ pipeline {
     }
     
     stages {
-        stage('decide pipeline') {
+        stage('checkout') {
             steps {
                 script {
-                    nodeJs(config)
+                    common.checkout(config)
+                }
+            }
+        }
+        stage('Read Version') {
+            steps {
+                script {
+                    common.readVersion("nodejs")
+                }
+            }
+        }
+        stage('Code Quality') {
+            steps {
+                script {
+                    common.codeQuality()
+                }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                script {
+                    common.qualityGate()
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    common.build("nodejs")
+                }
+            }
+        }
+        stage('Nexus Upload') {
+            steps {
+                script {
+                    common.nexusUpload()
+                }
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    common.installDependencies("nodejs")
+                }
+            }
+        }
+        stage('Dependency Check') {
+            steps {
+                script {
+                    common.dependencyCheck()
+                }
+            }
+        }
+        stage('Snyk Check') {
+            steps {
+                script {
+                    common.snykCheck()
+                }
+            }
+        }
+        stage('Trivy FS Scan') {
+            steps {
+                script {
+                    common.trivyfsScan()
+                }
+            }
+        }
+        stage('NPM Build') {
+            steps {
+                script {
+                    common.npmbuild("nodejs")
+                }
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                script {
+                    common.dockerBuild()
+                }
+            }
+        }
+        stage('Docker Scout') {
+            steps {
+                script {
+                    common.dockerScout()
+                }
+            }
+        }
+        stage('Trivy Image Scan') {
+            steps {
+                script {
+                    common.trivyImageScan()
+                }
+            }
+        }
+        stage('Push Image to Dockerhub') {
+            steps {
+                script {
+                    common.pushImagetoDockerhub()
+                }
+            }
+        }
+        stage('Push Image to AWS ECR') {
+            steps {
+                script {
+                    common.pushImagetoAWSECR()
                 }
             }
         }
@@ -42,6 +147,7 @@ pipeline {
         always {
             echo "Cleaning workspace..."
             cleanWs()
+            deleteDir()
         }
         success {
             echo "Pipeline was successful!"
