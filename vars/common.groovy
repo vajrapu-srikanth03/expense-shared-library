@@ -2,9 +2,11 @@
 //def appVersion
 
 def checkout(config) {
-    cleanWs() //clean the workspace
-        // for public repository
-    git branch: 'main', url: "${config.REPO_URL}"
+    stage('checkout code') {
+        cleanWs() //clean the workspace
+            // for public repository
+        git branch: 'main', url: "${config.REPO_URL}"
+    }
 }
 
 def readVersion(appType) {
@@ -98,8 +100,9 @@ def dockerBuild(){
 
 def dockerScout(){
     script {
-        withDockerRegistry(credentialsId: 'docker-auth', toolName: 'docker')
+        withDockerRegistry(credentialsId: 'docker-auth', toolName: 'docker'){
         sh "docker-scout cves srikanthhg/$JOB_BASE_NAME:${appVersion} --exit-code --only-severity critical,high"
+        }
     }
 }
 
