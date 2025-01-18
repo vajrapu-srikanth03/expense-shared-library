@@ -1,3 +1,6 @@
+// Define appVersion as a global variable
+def appVersion
+
 def checkout(config) {
     cleanWs() //clean the workspace
         // for public repository
