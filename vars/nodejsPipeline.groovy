@@ -22,7 +22,7 @@ pipeline {
         account_id = '608782704145'
         project = 'expense'
         environment = 'dev'
-        component = ${config.component}
+        component = "${config.component}"
         customImage = ''
         SONAR_HOME = tool 'sonar-6.2' // scanner configuration servername and scanner name both should be same
         //PATH = "/usr/bin:${env.PATH}"  // Force the pipeline to use /usr/bin/git
