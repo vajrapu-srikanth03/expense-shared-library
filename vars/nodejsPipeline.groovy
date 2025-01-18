@@ -2,10 +2,6 @@ def call(config) {
 
 pipeline {
     agent any
-    
-    parameters {
-        string(name: 'REPO_URL', defaultValue: 'https://github.com/vajrapu-srikanth03/backend.git', description: 'Repository URL')
-    }
 
     tools {
         nodejs 'nodejs20'  // Node.js tool
