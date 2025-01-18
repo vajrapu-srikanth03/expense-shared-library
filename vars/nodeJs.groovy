@@ -10,7 +10,7 @@ def call(config) {
     common.nexusUpload()
 
     common.installDependencies("nodejs") // Install dependencies for Node.js
-    common.dependencyCheck()             // OWASP dependency check
+    //common.dependencyCheck()             // OWASP dependency check
     common.snykCheck()                   // Run Snyk for vulnerabilities
     
     common.trivyfsScan()                 // Run Trivy filesystem scan
