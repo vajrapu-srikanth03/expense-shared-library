@@ -18,7 +18,7 @@ pipeline {
         
         DEBUG = 'true'
         appVersion = ''  // Example version, replace with actual value
-        region = "${config.region}" ?: 'us-east-1'
+        region = "${config.region ?: 'us-east-1'}"
         account_id = '608782704145'
         project = 'expense'
         environment = 'dev'
