@@ -10,6 +10,7 @@ pipeline {
     options pipelineOptions()
 
     environment {
+        
         DEBUG : 'true'
         appVersion : ''  // Example version, replace with actual value
         region : 'us-east-1'
