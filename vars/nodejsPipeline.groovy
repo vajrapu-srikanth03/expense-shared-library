@@ -5,6 +5,7 @@ pipeline {
     tools {
         nodejs 'nodejs20'  // Node.js tool
         git 'git'  // Git tool
+        snyk 'snyk' // snyk tool
     }
     options pipelineOptions()
 
@@ -17,7 +18,7 @@ pipeline {
         environment : 'dev'
         component : ${config.component}
         def customImage : ''
-        //SONAR_HOME= tool 'sonar-6.2' // scanner configuration servername and scanner name both should be same
+        SONAR_HOME= tool 'sonar-6.2' // scanner configuration servername and scanner name both should be same
         //PATH = "/usr/bin:${env.PATH}"  // Force the pipeline to use /usr/bin/git
     }
     
