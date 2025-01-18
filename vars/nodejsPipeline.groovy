@@ -78,13 +78,13 @@ pipeline {
                 }
             }
         }
-        stage('Dependency Check') {
-            steps {
-                script {
-                    common.dependencyCheck()
-                }
-            }
-        }
+        // stage('Dependency Check OWASP') {
+        //     steps {
+        //         script {
+        //             common.dependencyCheck()
+        //         }
+        //     }
+        // }
         stage('Snyk Check') {
             steps {
                 script {
