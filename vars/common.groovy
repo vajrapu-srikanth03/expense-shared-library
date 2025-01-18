@@ -1,7 +1,7 @@
 def checkout(config) {
     cleanWs() //clean the workspace
         // for public repository
-    git branch: 'main', url: "${env.REPO_URL}"
+    git branch: 'main', url: "${params.REPO_URL}"
 }
 
 def readVersion(appType) {
