@@ -97,6 +97,7 @@ def dockerBuild(){
 }
 
 def dockerScout(){
+    withDockerRegistry(credentialsId: 'docker-auth', toolName: 'docker')
     sh "docker-scout cves srikanthhg/$JOB_BASE_NAME:${appVersion} --exit-code --only-severity critical,high"
 }
 
