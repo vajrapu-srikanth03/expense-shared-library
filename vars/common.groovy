@@ -15,7 +15,7 @@ def readVersion(appType) {
 }
 
 def codeQuality(){
-    withSonarQubeEnv('sonar'){ //server name
+    withSonarQubeEnv('sonar-6.2'){ //server name
         sh '$SONAR_HOME/bin/sonar-scanner'
         //generic scanner, it automatically understands the language and provide scan results
     }
