@@ -9,7 +9,9 @@ pipeline {
         snyk 'snyk' // snyk tool
     }
     options {
-        pipelineOptions()
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        ansiColor('xterm')
     } 
 
     environment {
