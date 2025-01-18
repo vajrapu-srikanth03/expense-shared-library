@@ -72,7 +72,7 @@ def nexusUpload() {
         nexusArtifactUploader(
             nexusVersion: 'nexus3',
             protocol: 'http',
-            nexusUrl: pipelineGlobal.nexusURL(),
+            nexusUrl: pipelineGlobals.nexusURL(),
             groupId: 'com.expense',
             version: "${appVersion}",
             repository: "${JOB_BASE_NAME}",
