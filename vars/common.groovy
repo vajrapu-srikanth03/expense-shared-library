@@ -97,7 +97,7 @@ def snykCheck() {
 }
 
 def trivyfsScan() {
-    stage("Trivy filesystem Scan"){
+    stage("Trivy FS Scan"){
         sh "trivy fs --format table -o trivy-fs-report.html ."
     } 
 }

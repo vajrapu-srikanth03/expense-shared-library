@@ -28,8 +28,16 @@ pipeline {
         //PATH = "/usr/bin:${env.PATH}"  // Force the pipeline to use /usr/bin/git
     }
     
-    nodeJs(config) // Call the nodeJs function from the shared library
-
+    stages {
+        stage('NodeJS Pipeline') {
+            steps {
+                script {
+                    nodeJs(config) // Call the nodeJs function from the shared library
+                }
+            }
+        }
+    }
+    
     post {
         always {
             echo "Cleaning workspace..."
