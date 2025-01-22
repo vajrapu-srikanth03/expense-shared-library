@@ -1,3 +1,3 @@
 static final String nexusURL(){
-    return "3.236.88.162:8081"
+    return "35.174.106.69:8081"
 }
