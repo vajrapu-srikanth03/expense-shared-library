@@ -159,18 +159,19 @@ def pushImagetoAWSECR(){
                 sh "docker tag srikanthhg/$JOB_BASE_NAME:${appVersion} ${account_id}.dkr.ecr.us-east-1.amazonaws.com/${project}/$JOB_BASE_NAME:${appVersion}"
                 sh "docker push ${account_id}.dkr.ecr.us-east-1.amazonaws.com/${project}/$JOB_BASE_NAME:${appVersion}"
                 
-                // Initiate image scan
-                sh "aws ecr start-image-scan --repository-name ${project}/$JOB_BASE_NAME --image-id imageTag=${appVersion} --region ${region}"
-                
+                // Retry mechanism for initiating image scan
+                retry(3) {
+                    sleep(time: 60, unit: 'SECONDS')
+                    sh "aws ecr start-image-scan --repository-name ${project}/$JOB_BASE_NAME --image-id imageTag=${appVersion} --region ${region}"
+                }
                 // Wait for image scan to complete
-                timeout(time: 5, unit: 'MINUTES'){
+                timeout(time: 10, unit: 'MINUTES'){
                     waitUntil {
                         def scanStatus = sh(script: """aws ecr describe-image-scan-findings --repository-name ${project}/$JOB_BASE_NAME --image-id imageTag=${appVersion} --region ${region} --query "imageScanStatus.status" --output text""", returnStdout: true).trim()
                         return scanStatus == 'COMPLETE'
                     }
                 }
-                // Describe image scan findings
-                
+                // Describe image scan findings                
                 def scanResults = sh(script: """ aws ecr describe-image-scan-findings --repository-name ${project}/$JOB_BASE_NAME --image-id imageTag=${appVersion}  --region ${region} --query "imageScanFindings.findings" """, returnStdout: true).trim()
                 echo "Scan Results: ${scanResults}"
                 if (scanResults.contains("HIGH")) {
