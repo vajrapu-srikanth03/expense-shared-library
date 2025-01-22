@@ -170,7 +170,6 @@ def pushImagetoAWSECR(){
                     }
                 }
                 // Describe image scan findings
-                sh "aws ecr describe-image-scan-findings --repository-name ${project}/$JOB_BASE_NAME --image-id imageTag=${appVersion}  --region ${region} "
                 
                 def scanResults = sh(script: """ aws ecr describe-image-scan-findings --repository-name ${project}/$JOB_BASE_NAME --image-id imageTag=${appVersion}  --region ${region} --query "imageScanFindings.findings" """, returnStdout: true).trim()
                 echo "Scan Results: ${scanResults}"
