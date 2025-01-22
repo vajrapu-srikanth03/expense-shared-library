@@ -10,7 +10,7 @@ def checkout(config) {
 }
 
 def readVersion(appType) {
-    stage(''Read the version'') {
+    stage('Read the version') {
         if(appType=="nodejs"){
             script {
                 def props = readJSON file: 'package.json'
